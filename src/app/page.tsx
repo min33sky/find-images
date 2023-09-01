@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button';
+import Gallery from '@/components/Gallery';
 
 export default function Home() {
   return (
     <main>
-      <Button>Button</Button>
+      <Gallery />
     </main>
   );
 }

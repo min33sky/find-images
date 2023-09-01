@@ -11,5 +11,5 @@
 ## Environment Variables
 
 ```bash
-PEXELS_API_KEY=...
+PEXELS_API_KEY=[pexels api key]
 ```
