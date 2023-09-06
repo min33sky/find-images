@@ -1,5 +1,8 @@
+import Navbar from '@/components/Navbar';
 import './globals.css';
 import type { Metadata } from 'next';
+
+export const revalidate = 3600; // 1 hour
 
 export const metadata: Metadata = {
   title: 'Find Images',
@@ -13,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={'max-w-6xl mx-auto'}>{children}</body>
+      <body>
+        <Navbar />
+        <main className={'max-w-6xl mx-auto'}>{children}</main>
+      </body>
     </html>
   );
 }
