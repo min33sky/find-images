@@ -10,6 +10,8 @@ export default function SearchBar() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!keyword) return;
+
     router.push(`/results/${keyword}`);
     setKeyword('');
   };
