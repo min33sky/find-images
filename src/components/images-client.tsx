@@ -9,20 +9,22 @@ import { Button } from './ui/button';
 
 interface ImagesClientProps {
   photosWithBlur: Photo[];
-  nextPage?: boolean;
+  initData: ImagesResults;
 }
 
 export default function ImagesClient({
   photosWithBlur,
-  nextPage,
+  initData,
 }: ImagesClientProps) {
+  console.log('초기 데이터: ', initData);
+
   // TODO: infinite scroll
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ['images', 'curated'],
     queryFn: async ({ pageParam = 1 }) => {
       const res = await fetch(
-        `https://api.pexels.com/v1/curated?page=${pageParam}&per_page=15`,
+        `https://api.pexels.com/v1/curated?page=${pageParam}&per_page=20`,
         {
           headers: {
             Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY,
@@ -30,29 +32,24 @@ export default function ImagesClient({
         },
       );
 
-      const images = await res.json();
+      const images = (await res.json()) as ImagesResults;
 
-      console.log('이미지: ', images);
-
-      return images.photos;
+      return images;
     },
     getNextPageParam: (lastPage, pages) => {
-      console.log('pages: ', pages, pages.length);
-      console.log('next_page: ', nextPage);
-
-      // return undefined;
-      return pages.length + 1;
+      return lastPage.next_page ? lastPage.page + 1 : undefined;
     },
     initialPageParam: 1,
     initialData: {
-      pages: [photosWithBlur],
+      pages: [initData],
       pageParams: [1],
     },
   });
 
+  console.log('data: ', data);
   console.log('hasNextPage: ', hasNextPage);
 
-  const photos = data?.pages.flatMap((page) => page) ?? photosWithBlur;
+  const photos = data?.pages.flatMap((page) => page.photos) ?? [];
 
   return (
     <>

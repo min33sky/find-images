@@ -2,7 +2,7 @@ import Gallery from '@/components/gallery';
 import ImagesClient from '@/components/images-client';
 import fetchCuratedImages from '@/lib/fetch-curated-images';
 import addBlurredDataUrls from '@/lib/getBase64';
-import { Photo } from '@/schemes/images';
+import { ImagesResults, Photo } from '@/schemes/images';
 import { ImageOffIcon } from 'lucide-react';
 
 interface HomeProps {
@@ -18,7 +18,7 @@ export default async function Home({
   const images = await fetchCuratedImages(parseInt(page));
   console.log('images: ', images);
 
-  if (!images || images.per_page === 0)
+  if (!images || images.photos.length === 0)
     return (
       <div className="flex flex-col items-center justify-center h-full space-y-4 ">
         <ImageOffIcon className="w-24 h-24" />
@@ -31,6 +31,11 @@ export default async function Home({
   // 기존의 이미지 데이터에 블러 처리된 이미지 데이터를 추가
   const photosWithBlur: Photo[] = await addBlurredDataUrls(images);
 
+  const initData: ImagesResults = {
+    ...images,
+    photos: photosWithBlur,
+  };
+
   // return <div>테스트</div>;
-  return <ImagesClient photosWithBlur={photosWithBlur} />;
+  return <ImagesClient initData={initData} photosWithBlur={photosWithBlur} />;
 }
