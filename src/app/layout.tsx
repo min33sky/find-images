@@ -1,5 +1,6 @@
 import './globals.css';
 import Navbar from '@/components/navbar';
+import ReactQueryProvider from '@/components/providers/react-query-provider';
 import type { Metadata } from 'next';
 import React from 'react';
 
@@ -20,11 +21,13 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className="h-full bg-slate-100">
-        <Navbar />
-        <main className={'h-full max-w-7xl mx-auto'}>
-          {children}
-          {modal}
-        </main>
+        <ReactQueryProvider>
+          <Navbar />
+          <main className={'h-full max-w-7xl mx-auto'}>
+            {children}
+            {modal}
+          </main>
+        </ReactQueryProvider>
       </body>
     </html>
   );

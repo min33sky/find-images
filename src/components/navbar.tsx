@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import React, { useState } from 'react';
-import SearchBar from './SearchBar';
+import SearchBar from './search-bar';
 import useScrollTop from '@/hooks/use-scroll-top';
 import { cn } from '@/lib/utils';
 
