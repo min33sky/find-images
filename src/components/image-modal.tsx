@@ -9,8 +9,14 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useRouter } from 'next/navigation';
+import { PexelImage } from '@/lib/types';
+import Image from 'next/image';
 
-export default function ImageModal() {
+interface ImageModalProps {
+  image: PexelImage;
+}
+
+export default function ImageModal({ image }: ImageModalProps) {
   const [isOpen, setIsOpen] = useState(true);
   const router = useRouter();
 
@@ -24,11 +30,20 @@ export default function ImageModal() {
     >
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you sure absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
+          <DialogTitle>이미지 모달</DialogTitle>
+          <div className="relative aspect-video rounded-xl overflow-hidden">
+            <Image
+              src={image.src.large}
+              alt={image.alt}
+              fill
+              // width={image.width}
+              // height={image.height}
+              // sizes="250px"
+              // placeholder="blur"
+              // blurDataURL={photo.blurredDataUrl}
+              className=" object-cover"
+            />
+          </div>
         </DialogHeader>
       </DialogContent>
     </Dialog>
