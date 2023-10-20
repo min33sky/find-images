@@ -1,4 +1,4 @@
-import fetchImages from '@/lib/fetchImages';
+import fetchImages from '@/lib/fetch-images';
 import { ImagesResults } from '@/schemes/images';
 import ImageContainer from './image-container';
 import addBlurredDataUrls from '@/lib/getBase64';
