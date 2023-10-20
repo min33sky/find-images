@@ -14,8 +14,6 @@ export default async function ImageModalPage({
 }: ImageModalPageProps) {
   const image = await fetchImage(parseInt(id));
 
-  console.log('#### 모달 이미지: ', image);
-
   if (!image) {
     return notFound();
   }
