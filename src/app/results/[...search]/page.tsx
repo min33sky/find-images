@@ -1,4 +1,3 @@
-import Gallery from '@/components/gallery';
 import { Metadata } from 'next';
 import React from 'react';
 
@@ -21,5 +20,5 @@ export default function SearchResultsPage({ params: { search } }: Props) {
   const keyword = search?.[0] ?? 'curated';
   const page = search?.[1] ?? '1';
 
-  return <Gallery keyword={keyword} page={page} />;
+  return <div>다시 작업 중</div>;
 }
