@@ -1,11 +1,11 @@
 'use client';
 
 import { ImagesResults, Photo } from '@/schemes/images';
-import React from 'react';
+import React, { useEffect } from 'react';
 import ImageContainer from './image-container';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import fetchCuratedImages from '@/lib/fetch-curated-images';
-import { Button } from './ui/button';
+import { useInView } from 'react-intersection-observer';
+import { LoaderIcon } from 'lucide-react';
 
 interface ImagesClientProps {
   photosWithBlur: Photo[];
@@ -16,9 +16,7 @@ export default function ImagesClient({
   photosWithBlur,
   initData,
 }: ImagesClientProps) {
-  console.log('초기 데이터: ', initData);
-
-  // TODO: infinite scroll
+  const { inView, ref } = useInView();
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
     queryKey: ['images', 'curated'],
@@ -51,13 +49,24 @@ export default function ImagesClient({
 
   const photos = data?.pages.flatMap((page) => page.photos) ?? [];
 
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, inView]);
+
   return (
     <>
       <section className="mt-24 px-1 my-3 grid grid-cols-auto-fit md:auto-rows-[10px] gap-2 md:gap-0 select-none">
         {photos.map((photo) => (
           <ImageContainer key={photo.id} photo={photo} />
         ))}
-        <Button onClick={() => fetchNextPage()}>다음</Button>
+
+        {hasNextPage && (
+          <div ref={ref}>
+            <LoaderIcon className="w-20 h-20 animate-spin text-primary" />
+          </div>
+        )}
       </section>
     </>
   );
