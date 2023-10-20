@@ -16,6 +16,7 @@ export default async function Home({
   searchParams: { page = '1' },
 }: HomeProps) {
   const images = await fetchCuratedImages(parseInt(page));
+  console.log('images: ', images);
 
   if (!images || images.per_page === 0)
     return (
@@ -30,5 +31,6 @@ export default async function Home({
   // 기존의 이미지 데이터에 블러 처리된 이미지 데이터를 추가
   const photosWithBlur: Photo[] = await addBlurredDataUrls(images);
 
+  // return <div>테스트</div>;
   return <ImagesClient photosWithBlur={photosWithBlur} />;
 }
