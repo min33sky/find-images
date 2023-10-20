@@ -16,9 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className="h-full">
+      <body className="h-full bg-slate-100">
         <Navbar />
-        <main className={'h-full max-w-7xl mx-auto mt-24'}>{children}</main>
+        <main className={'h-full max-w-7xl mx-auto'}>{children}</main>
       </body>
     </html>
   );

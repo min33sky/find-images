@@ -4,6 +4,7 @@ import ImageContainer from './image-container';
 import addBlurredDataUrls from '@/lib/getBase64';
 import Footer from './Footer';
 import getPrevNextPages from '@/lib/getPrevNextpages';
+import { ImageOffIcon } from 'lucide-react';
 
 interface GalleryProps {
   keyword?: string;
@@ -33,7 +34,14 @@ export default async function Gallery({
   const images: ImagesResults | undefined = await fetchImages(url);
 
   if (!images || images.per_page === 0)
-    return <h2 className="m-4 text-2xl font-bold">No Images Found</h2>;
+    return (
+      <div className="flex flex-col items-center justify-center h-full space-y-4 ">
+        <ImageOffIcon className="w-24 h-24" />
+        <h2 className="font-bold text-lg">
+          조건에 맞는 이미지를 찾지 못했습니다.
+        </h2>
+      </div>
+    );
 
   // 기존의 이미지 데이터에 블러 처리된 이미지 데이터를 추가
   const photosWithBlur = await addBlurredDataUrls(images);
@@ -42,7 +50,7 @@ export default async function Gallery({
 
   return (
     <>
-      <section className="px-1 my-3 grid grid-cols-auto-fit md:auto-rows-[10px] gap-2 md:gap-0">
+      <section className="mt-24 px-1 my-3 grid grid-cols-auto-fit md:auto-rows-[10px] gap-2 md:gap-0">
         {photosWithBlur.map((photo) => (
           <ImageContainer key={photo.id} photo={photo} />
         ))}
