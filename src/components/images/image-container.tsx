@@ -6,6 +6,9 @@ interface ImageContainerProps {
   photo: Photo;
 }
 
+/**
+ * 이미지가 세로로 몇 줄을 차지할지 설정하며 랜더링을 하는 컴포넌트
+ */
 export default function ImageContainer({ photo }: ImageContainerProps) {
   const widthHeightRatio = photo.height / photo.width;
   const galleryHeight = Math.ceil(250 * widthHeightRatio); //? 250은 tailwind grid-template-columns의 값을 250px로 설정했기 때문에 250으로 설정해놔서

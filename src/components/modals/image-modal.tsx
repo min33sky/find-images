@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import { PexelImage } from '@/lib/types';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button } from './ui/button';
+import { Button } from '../ui/button';
 
 interface ImageModalProps {
   image: PexelImage;

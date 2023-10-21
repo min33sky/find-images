@@ -1,5 +1,5 @@
 import Gallery from '@/components/gallery';
-import ImagesClient from '@/components/images-client';
+import ImagesClient from '@/components/images/images-client';
 import fetchCuratedImages from '@/lib/fetch-curated-images';
 import addBlurredDataUrls from '@/lib/getBase64';
 import { ImagesResults, Photo } from '@/schemes/images';
@@ -16,7 +16,6 @@ export default async function Home({
   searchParams: { page = '1' },
 }: HomeProps) {
   const images = await fetchCuratedImages(parseInt(page));
-  console.log('images: ', images);
 
   if (!images || images.photos.length === 0)
     return (
@@ -28,7 +27,7 @@ export default async function Home({
       </div>
     );
 
-  // 기존의 이미지 데이터에 블러 처리된 이미지 데이터를 추가
+  //? 기존의 이미지 데이터에 블러 처리된 이미지 데이터를 추가
   const photosWithBlur: Photo[] = await addBlurredDataUrls(images);
 
   const initData: ImagesResults = {
@@ -36,6 +35,5 @@ export default async function Home({
     photos: photosWithBlur,
   };
 
-  // return <div>테스트</div>;
-  return <ImagesClient initData={initData} photosWithBlur={photosWithBlur} />;
+  return <ImagesClient initData={initData} />;
 }

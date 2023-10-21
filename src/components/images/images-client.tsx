@@ -8,14 +8,13 @@ import { useInView } from 'react-intersection-observer';
 import { LoaderIcon } from 'lucide-react';
 
 interface ImagesClientProps {
-  photosWithBlur: Photo[];
   initData: ImagesResults;
 }
 
-export default function ImagesClient({
-  photosWithBlur,
-  initData,
-}: ImagesClientProps) {
+/**
+ * 무한 스크롤링을 위한 이미지들을 처리할 클라이언트
+ */
+export default function ImagesClient({ initData }: ImagesClientProps) {
   const { inView, ref } = useInView();
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
@@ -44,8 +43,8 @@ export default function ImagesClient({
     },
   });
 
-  console.log('data: ', data);
-  console.log('hasNextPage: ', hasNextPage);
+  // console.log('data: ', data);
+  // console.log('hasNextPage: ', hasNextPage);
 
   const photos = data?.pages.flatMap((page) => page.photos) ?? [];
 
@@ -57,6 +56,7 @@ export default function ImagesClient({
 
   return (
     <>
+      {/* Masonry UI를 위해 Grid Rows를 10px로 잘게 나눠서 설정한다. */}
       <section className="mt-24 px-1 my-3 grid grid-cols-auto-fit md:auto-rows-[10px] gap-2 md:gap-0 select-none">
         {photos.map((photo) => (
           <ImageContainer key={photo.id} photo={photo} />

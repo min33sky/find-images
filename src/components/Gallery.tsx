@@ -1,6 +1,6 @@
 import fetchImages from '@/lib/fetch-images';
 import { ImagesResults } from '@/schemes/images';
-import ImageContainer from './image-container';
+import ImageContainer from './images/image-container';
 import addBlurredDataUrls from '@/lib/getBase64';
 import Footer from './footer';
 import getPrevNextPages from '@/lib/getPrevNextpages';

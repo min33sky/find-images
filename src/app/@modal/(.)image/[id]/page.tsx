@@ -1,4 +1,4 @@
-import ImageModal from '@/components/image-modal';
+import ImageModal from '@/components/modals/image-modal';
 import fetchImage from '@/lib/fetch-image';
 import { notFound } from 'next/navigation';
 import React from 'react';
