@@ -2,10 +2,10 @@
 
 import { ImagesResults, Photo } from '@/schemes/images';
 import React, { useEffect } from 'react';
-import ImageContainer from './image-container';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { LoaderIcon } from 'lucide-react';
+import ImageContainer from './image-container';
 
 interface ImagesClientProps {
   initData: ImagesResults;
