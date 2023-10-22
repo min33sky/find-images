@@ -2,9 +2,9 @@ import fetchImages from '@/lib/fetch-images';
 import { ImagesResults } from '@/schemes/images';
 import ImageContainer from './images/image-container';
 import addBlurredDataUrls from '@/lib/getBase64';
-import Footer from './footer';
 import getPrevNextPages from '@/lib/getPrevNextpages';
 import { ImageOffIcon } from 'lucide-react';
+import Footer from './Footer';
 
 interface GalleryProps {
   keyword?: string;

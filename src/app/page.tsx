@@ -1,4 +1,3 @@
-import Gallery from '@/components/gallery';
 import ImagesClient from '@/components/images/images-client';
 import fetchCuratedImages from '@/lib/fetch-curated-images';
 import addBlurredDataUrls from '@/lib/getBase64';

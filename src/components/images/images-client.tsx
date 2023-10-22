@@ -9,19 +9,22 @@ import ImageContainer from './image-container';
 
 interface ImagesClientProps {
   initData: ImagesResults;
+  keyword?: string;
 }
 
 /**
  * 무한 스크롤링을 위한 이미지들을 처리할 클라이언트
  */
-export default function ImagesClient({ initData }: ImagesClientProps) {
+export default function ImagesClient({ initData, keyword }: ImagesClientProps) {
   const { inView, ref } = useInView();
 
   const { data, fetchNextPage, hasNextPage } = useInfiniteQuery({
-    queryKey: ['images', 'curated'],
+    queryKey: ['images', keyword ? keyword : 'curated'],
     queryFn: async ({ pageParam = 1 }) => {
       const res = await fetch(
-        `https://api.pexels.com/v1/curated?page=${pageParam}&per_page=20`,
+        keyword
+          ? `https://api.pexels.com/v1/search?query=${keyword}&page=${pageParam}`
+          : `https://api.pexels.com/v1/curated?page=${pageParam}&per_page=20`,
         {
           headers: {
             Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY,
@@ -61,13 +64,14 @@ export default function ImagesClient({ initData }: ImagesClientProps) {
         {photos.map((photo) => (
           <ImageContainer key={photo.id} photo={photo} />
         ))}
-
-        {hasNextPage && (
-          <div ref={ref}>
-            <LoaderIcon className="w-20 h-20 animate-spin text-primary" />
-          </div>
-        )}
       </section>
+
+      {/* Loading Bar */}
+      {hasNextPage && (
+        <div ref={ref} className="w-full flex items-center justify-center">
+          <LoaderIcon className="w-20 h-20 animate-spin text-primary" />
+        </div>
+      )}
     </>
   );
 }
